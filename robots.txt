@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://o-hayato.github.io/sitemap.xml 

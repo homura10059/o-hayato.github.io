@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[In the SOAP]]></title>
+  <link href="http://o-hayato.github.io/atom.xml" rel="self"/>
+  <link href="http://o-hayato.github.io/"/>
+  <updated>2014-04-04T22:23:19+09:00</updated>
+  <id>http://o-hayato.github.io/</id>
+  <author>
+    <name><![CDATA[o-hayato]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ChocolateyでWindowsのパッケージ管理]]></title>
+    <link href="http://o-hayato.github.io/blog/2014/04/04/chocolatey/"/>
+    <updated>2014-04-04T21:52:47+09:00</updated>
+    <id>http://o-hayato.github.io/blog/2014/04/04/chocolatey</id>
+    <content type="html"><![CDATA[<h2>概要</h2>
+
+<p>windowsPCでもLinuxライクなパッケージ管理がしたいので、
+<a href="https://chocolatey.org/">Chocolatey</a>を導入</p>
+
+<h2>環境</h2>
+
+<ul>
+<li>OS：windows7 64bit</li>
+</ul>
+
+
+<h2>Chocolateyのインストール</h2>
+
+<p>「win + r」で出てきたウィンドウに「cmd」といれてEnter<br/>
+コマンドプロンプトが起動されるので以下を貼り付けてEnterで完了。簡単。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%systemdrive%\chocolatey\bin</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>パッケージのインストール方法</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cinst パッケージ名</span></code></pre></td></tr></table></div></figure>
+
+
+<p>をコマンドプロンプトなり、powershellなりから実行すればOK。<br/>
+インストールできるパッケージは<a href="https://chocolatey.org/packages">ギャラリー</a>から検索できる<br/>
+コマンドもギャラリーに書いてあるのでコピペでOK。</p>
+
+<h2>インストールしたもの</h2>
+
+<ul>
+<li>Git
+
+<ul>
+<li>バージョン管理システム</li>
+<li><code>cinst git.install</code></li>
+</ul>
+</li>
+<li>SourceCodePro
+
+<ul>
+<li>プログラミング用のフォント</li>
+<li><code>cinst SourceCodePro</code></li>
+</ul>
+</li>
+<li>sublimetext2
+
+<ul>
+<li>非常に多機能で使いやすいエディタ。</li>
+<li><code>cinst sublimetext2</code></li>
+<li>sublimetext用のパッケージ管理システム
+
+<ul>
+<li><code>cinst SublimeText2.PackageControl -Version 1.6.3</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>vmwareplayer
+
+<ul>
+<li>仮想環境</li>
+<li><code>cinst vmwareplayer</code></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>雑感</h2>
+
+<p>windows上でもyumとかapt-getっぽくパッケージ管理できて良い◎。<br/>
+もっと普及して、ローカルに開発環境構築するための手順書なんかなくなればいいのに。</p>
+]]></content>
+  </entry>
+  
+</feed>
