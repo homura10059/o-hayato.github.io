@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>In the SOAP</title>
+  <title>Scrapyを使ってファイナンス情報のスクレイピング - In the SOAP</title>
   <meta name="author" content="o-hayato">
 
   
@@ -21,7 +21,7 @@ Scrapyとは何ぞやという話は、 &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://o-hayato.github.io">
+  <link rel="canonical" href="http://o-hayato.github.io/blog/2014/04/06/scrapy">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="In the SOAP" type="application/atom+xml">
@@ -66,15 +66,12 @@ Scrapyとは何ぞやという話は、 &hellip;">
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/04/06/scrapy/">Scrapyを使ってファイナンス情報のスクレイピング</a></h1>
+      <h1 class="entry-title">Scrapyを使ってファイナンス情報のスクレイピング</h1>
     
     
       <p class="meta">
@@ -97,7 +94,7 @@ Scrapyとは何ぞやという話は、 &hellip;">
   </header>
 
 
-  <div class="entry-content"><h2>概要</h2>
+<div class="entry-content"><h2>概要</h2>
 
 <p>ファイナンス情報の解析がしたいので、材料集めにスクレイピングをしてみる。<br/>
 Python書いたことないけど、データ解析には向いてると聞いたので、勉強だと思ってやってみた。<br/>
@@ -332,22 +329,16 @@ Selectorはxpathで、パース先を記載できるのでタイトルと、Cash
 </ul>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/04/chocolatey/">ChocolateyでWindowsのパッケージ管理</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">o-hayato</span></span>
+
+      
 
 
 
@@ -359,101 +350,32 @@ Selectorはxpathで、パース先を記載できるのでタイトルと、Cash
   
 
 
-<time datetime="2014-04-04T21:52:47+09:00" pubdate data-updated="true">2014-04-04</time>
-        
-      </p>
+<time datetime="2014-04-06T13:27:21+09:00" pubdate data-updated="true">2014-04-06</time>
+      
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><h2>概要</h2>
-
-<p>windowsPCでもLinuxライクなパッケージ管理がしたいので、
-<a href="https://chocolatey.org/">Chocolatey</a>を導入</p>
-
-<h2>環境</h2>
-
-<ul>
-<li>OS：windows7 64bit</li>
-</ul>
-
-
-<h2>Chocolateyのインストール</h2>
-
-<p>「win + r」で出てきたウィンドウに「cmd」といれてEnter<br/>
-コマンドプロンプトが起動されるので以下を貼り付けてEnterで完了。簡単。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%systemdrive%\chocolatey\bin</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>パッケージのインストール方法</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cinst パッケージ名</span></code></pre></td></tr></table></div></figure>
-
-
-<p>をコマンドプロンプトなり、powershellなりから実行すればOK。<br/>
-インストールできるパッケージは<a href="https://chocolatey.org/packages">ギャラリー</a>から検索できる<br/>
-コマンドもギャラリーに書いてあるのでコピペでOK。</p>
-
-<h2>インストールしたもの</h2>
-
-<ul>
-<li>Git
-
-<ul>
-<li>バージョン管理システム</li>
-<li><code>cinst git.install</code></li>
-</ul>
-</li>
-<li>SourceCodePro
-
-<ul>
-<li>プログラミング用のフォント</li>
-<li><code>cinst SourceCodePro</code></li>
-</ul>
-</li>
-<li>sublimetext2
-
-<ul>
-<li>非常に多機能で使いやすいエディタ。</li>
-<li><code>cinst sublimetext2</code></li>
-<li>sublimetext用のパッケージ管理システム
-
-<ul>
-<li><code>cinst SublimeText2.PackageControl -Version 1.6.3</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>vmwareplayer
-
-<ul>
-<li>仮想環境</li>
-<li><code>cinst vmwareplayer</code></li>
-</ul>
-</li>
-</ul>
-
-
-<h2>雑感</h2>
-
-<p>windows上でもyumとかapt-getっぽくパッケージ管理できて良い◎。<br/>
-もっと普及して、ローカルに開発環境構築するための手順書なんかなくなればいいのに。</p>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://o-hayato.github.io/blog/2014/04/06/scrapy/" data-via="" data-counturl="http://o-hayato.github.io/blog/2014/04/06/scrapy/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/04/04/chocolatey/" title="Previous Post: ChocolateyでWindowsのパッケージ管理">&laquo; ChocolateyでWindowsのパッケージ管理</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -474,7 +396,7 @@ Selectorはxpathで、パース先を記載できるのでタイトルと、Cash
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/o-hayato">@o-hayato</a> on GitHub
@@ -506,6 +428,7 @@ Selectorはxpathで、パース先を記載できるのでタイトルと、Cash
 
   
 </aside>
+
 
     </div>
   </div>
