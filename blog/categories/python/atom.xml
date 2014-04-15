@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Python | In the SOAP]]></title>
+  <link href="http://o-hayato.github.io/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://o-hayato.github.io/"/>
+  <updated>2014-04-15T23:54:22+09:00</updated>
+  <id>http://o-hayato.github.io/</id>
+  <author>
+    <name><![CDATA[o-hayato]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Scrapyを使ってファイナンス情報のスクレイピング]]></title>
+    <link href="http://o-hayato.github.io/blog/2014/04/06/scrapy/"/>
+    <updated>2014-04-06T13:27:21+09:00</updated>
+    <id>http://o-hayato.github.io/blog/2014/04/06/scrapy</id>
+    <content type="html"><![CDATA[<h2>概要</h2>
+
+<p>ファイナンス情報の解析がしたいので、材料集めにスクレイピングをしてみる。<br/>
+Python書いたことないけど、データ解析には向いてると聞いたので、勉強だと思ってやってみた。<br/>
+スクレイピングには<a href="http://scrapy.org/">scrapy</a>というライブラリを使用してみた。<br/>
+Scrapyとは何ぞやという話は、参考にした<a href="http://orangain.hatenablog.com/entry/scrapy">こちら</a>で詳しく解説されているので割愛。</p>
+
+<!-- more -->
+
+
+<h2>環境</h2>
+
+<ul>
+<li>OS：Ubuntu13</li>
+<li>Python:2.7.5 (pyenvでインストール)</li>
+</ul>
+
+
+<h2>scrapyのインストール</h2>
+
+<p>※ scrapyはPython3系だと動かないので注意</p>
+
+<p><code>
+sudo apt-get install libxml2-dev libxslt-dev
+pip install scrapy
+</code></p>
+
+<h2>scrapyプロジェクト作成</h2>
+
+<p>以下のコマンドでプロジェクト作成</p>
+
+<p><code>
+scrapy startproject yahooFinance
+</code></p>
+
+<p>yahooFinanceというディレクトリができる。<br/>
+中身は以下のような感じ。</p>
+
+<p>```</p>
+
+<h1>tree yahooFinance/</h1>
+
+<p>yahooFinance/
+ scrapy.cfg
+ yahooFinance</p>
+
+<pre><code> __init__.py
+ items.py
+ pipelines.py
+ settings.py
+ spiders
+     __init__.py
+</code></pre>
+
+<p>```</p>
+
+<h2>出力データの定義</h2>
+
+<p>基本的にscrapyのデータはJSONで出力されるみたいです。
+出力するデータ構造を定義するため、<code>items.py</code>に以下のクラスを追記します</p>
+
+<p>```
+class FinanceItem(Item):</p>
+
+<pre><code>title = Field()
+body = Field()
+</code></pre>
+
+<p>```</p>
+
+<p>とりあえずページタイトルと、bodyを格納する領域を作成しておきます。</p>
+
+<h2>スクレイピングのルールとパーサの定義</h2>
+
+<p>「yahooFinance/spiders/finance.py」というファイルを作成して以下のように書いてみました。</p>
+
+<p>```</p>
+
+<h1>coding: utf-8</h1>
+
+<p>from scrapy import log
+from scrapy.contrib.spiders import CrawlSpider, Rule
+from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
+from scrapy.selector import Selector</p>
+
+<p>from yahooFinance.items import FinanceItem</p>
+
+<p>class financeSpider(CrawlSpider):</p>
+
+<pre><code>name = 'finance'
+allowed_domains = ["finance.yahoo.com"]
+start_urls = [
+    'http://finance.yahoo.com/q?s=V',
+]
+rules = [
+    Rule(SgmlLinkExtractor(allow=('\+Cash\+Flow\&amp;annual', )), callback='parse_finance'),
+]
+
+def parse_finance(self, response):
+    self.log('Hi, this is an item page! %s' % response.url)
+    item = FinanceItem()
+
+    sel = Selector(response)
+    item['title'] = sel.xpath('//title/text()').extract()
+    item['body'] = sel.xpath('//table[@class="yfnc_tabledata1"]').extract()
+    yield item
+</code></pre>
+
+<p>```</p>
+
+<p>順を追って説明します。</p>
+
+<p>```
+class financeSpider(CrawlSpider):</p>
+
+<pre><code>name = 'finance'
+allowed_domains = ["finance.yahoo.com"]
+start_urls = [
+    'http://finance.yahoo.com/q?s=V',
+]
+rules = [
+    Rule(SgmlLinkExtractor(allow=('\+Cash\+Flow\&amp;annual', )), callback='parse_finance'),
+]
+</code></pre>
+
+<p>```
+このあたりまでがスクレイピングルールを定義している部分です。<br/>
+「start_urls」から初めて、そのページにあるリンクの中から<br/>
+リンクURLが「+Cash+Flow&amp;annual」にマッチするものだけをパーサ（parse_finance）に渡すという設定です。</p>
+
+<p>とりあえず「start_urls」はyahooファイナンスのVisaのページを、たどる先のリンクはCashFlow情報ページにしました。</p>
+
+<p>```</p>
+
+<pre><code>def parse_finance(self, response):
+    self.log('Hi, this is an item page! %s' % response.url)
+    item = FinanceItem()
+
+    sel = Selector(response)
+    item['title'] = sel.xpath('//title/text()').extract()
+    item['body'] = sel.xpath('//table[@class="yfnc_tabledata1"]').extract()
+    yield item
+</code></pre>
+
+<p>```
+これが、パーサです。<br/>
+httpレスポンスをSelectorに渡して、中身をパースしています。<br/>
+Selectorはxpathで、パース先を記載できるのでタイトルと、CashFlow情報テーブルを取得し、<br/>
+先ほど作ったFinanceItemのtitleとbodyに入れています。</p>
+
+<p>xpathでの指定に関しては不慣れだたため、scrapyの対話モードを使用して確認しました。<br/>
+以下のコマンドで対話モードでのスクレイピングが行えます。
+<code>
+scrapy shell http://finance.yahoo.com/q/cf?s=V\+Cash\+Flow\&amp;annual
+</code></p>
+
+<h2>スクレイピングの実行</h2>
+
+<p>最初に作ったyahooFinanceディレクトリ直下に戻り、以下のコマンドでscrapyのクローリングを開始できます。<br/>
+結果はresult.jsonに出力されます。
+<code>
+scrapy crawl finance -o result.json
+</code></p>
+
+<h2>雑感</h2>
+
+<ul>
+<li>少ないコードでスクレイピングがはじめられるのは手軽でいい</li>
+<li>xpathで指定することに関する学習コストがちょっとかかる
+
+<ul>
+<li>そこらへんは<a href="http://www.crummy.com/software/BeautifulSoup/">BeautifulSoup</a>のほうが書きやすい</li>
+<li>速度やほかの機能との兼ね合いで好きなほう使えばいいと思う。</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>これからのTODO</h2>
+
+<ul>
+<li>複数のティッカーシンボルに対応できるようにする</li>
+<li>CashFlow情報以外も拾ってこれるようにする</li>
+<li>取ってきたデータをMongoDBに突っ込む</li>
+<li>DBに突っ込んだデータを解析する</li>
+</ul>
+
+
+<p>やることいっぱい。</p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://orangain.hatenablog.com/entry/scrapy">http://orangain.hatenablog.com/entry/scrapy</a></li>
+<li><a href="http://doc.scrapy.org/en/latest/">http://doc.scrapy.org/en/latest/</a></li>
+<li><a href="http://tanmaydatta.wordpress.com/2013/11/30/web-crawler-python-for-getting-financial-data/">http://tanmaydatta.wordpress.com/2013/11/30/web-crawler-python-for-getting-financial-data/</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

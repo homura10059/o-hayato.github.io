@@ -4,7 +4,7 @@
   <title><![CDATA[In the SOAP]]></title>
   <link href="http://o-hayato.github.io/atom.xml" rel="self"/>
   <link href="http://o-hayato.github.io/"/>
-  <updated>2014-04-06T21:28:54+09:00</updated>
+  <updated>2014-04-15T23:54:22+09:00</updated>
   <id>http://o-hayato.github.io/</id>
   <author>
     <name><![CDATA[o-hayato]]></name>
@@ -24,6 +24,9 @@
 Python書いたことないけど、データ解析には向いてると聞いたので、勉強だと思ってやってみた。<br/>
 スクレイピングには<a href="http://scrapy.org/">scrapy</a>というライブラリを使用してみた。<br/>
 Scrapyとは何ぞやという話は、参考にした<a href="http://orangain.hatenablog.com/entry/scrapy">こちら</a>で詳しく解説されているので割愛。</p>
+
+<!-- more -->
+
 
 <h2>環境</h2>
 
@@ -264,6 +267,9 @@ Selectorはxpathで、パース先を記載できるのでタイトルと、Cash
 
 <p>windowsPCでもLinuxライクなパッケージ管理がしたいので、
 <a href="https://chocolatey.org/">Chocolatey</a>を導入</p>
+
+<!-- more -->
+
 
 <h2>環境</h2>
 
